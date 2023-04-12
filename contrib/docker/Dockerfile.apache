@@ -1,4 +1,4 @@
-FROM php:8.1-apache-bullseye
+FROM php:8.2.4-apache-bullseye
 
 ENV COMPOSER_MEMORY_LIMIT=-1
 ARG DEBIAN_FRONTEND=noninteractive
@@ -38,7 +38,7 @@ RUN apt-get update \
 ## Video Processing
       ffmpeg \
 ## Database
-#      libpq-dev \
+      libpq-dev \
 #      libsqlite3-dev \
       mariadb-client \
 # Locales Update
@@ -61,7 +61,7 @@ RUN apt-get update \
   && pecl install redis \
   && docker-php-ext-enable redis \
 #PHP Database extensions
-  && docker-php-ext-install pdo_mysql \
+  && docker-php-ext-install pdo_pgsql \
 #pdo_pgsql pdo_sqlite \
 #PHP extensions (dependencies)
   && docker-php-ext-configure intl \
@@ -92,6 +92,8 @@ RUN cp -r storage storage.skel \
   && composer install --prefer-dist --no-interaction --no-ansi --optimize-autoloader \
   && rm -rf html && ln -s public html \
   && chown -R www-data:www-data /var/www
+#   && chmod -R 777 /var/www \
+#   && chmod +x /var/www/contrib/docker/start.apache.sh
 
 RUN php artisan horizon:publish
 

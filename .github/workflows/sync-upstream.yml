@@ -1,0 +1,49 @@
+name: sync with upstream
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 0"
+
+permissions:
+  packages: write
+
+jobs:
+  sync_with_upstream:
+    runs-on: ubuntu-latest
+    name: sync
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3
+      with:
+        ref: dev
+
+    - name: sync_imperative
+      run: |
+        git remote add upstream https://github.com/pixelfed/pixelfed.git
+
+        git fetch upstream
+        git merge upstream/dev
+        git log -n 3 --oneline
+
+    - name: setup qemu
+      uses: docker/setup-qemu-action@v2
+
+    - name: setup buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: login
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: build and push
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        file: contrib/docker/Dockerfile.apache
+        push: true
+        tags: ghcr.io/coldrdy/pixelfed:wkwk
