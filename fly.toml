@@ -1,0 +1,137 @@
+# fly.toml file generated for pixelfed on 2023-03-05T01:54:49+07:00
+
+app = "pixelfed"
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
+
+[env]
+	APP_ENV = "production"
+	LOG_LEVEL = "info"
+	LOG_STDERR_FORMATTER = "Monolog\\Formatter\\JsonFormatter"
+	APP_NAME="very pixelfed"
+	APP_DEBUG=false
+	APP_URL="https://staging.px.wkwkwk.fun"
+	APP_DOMAIN="staging.px.wkwkwk.fun"
+	ADMIN_DOMAIN="staging.px.wkwkwk.fun"
+	SESSION_DOMAIN="staging.px.wkwkwk.fun"
+	OPEN_REGISTRATION=true
+	ENFORCE_EMAIL_VERIFICATION=true
+	PF_MAX_USERS=1000
+	OAUTH_ENABLED=true
+	MEDIA_EXIF_DATABASE=true
+	APP_TIMEZONE="Asia/Makassar"
+	APP_LOCALE="id"
+	MEDIA_TYPES="image/jpg,image/jpeg,image/png,image/gif,video/mp4,video/mpeg,video/3gpp,video/quicktime"
+	CUSTOM_EMOJI=true
+	ENABLE_CONFIG_CACHE=true
+	IMPORT_INSTAGRAM=true
+	PF_BOUNCER_ENABLED=true
+	AP_LOGGER_ENABLED=true
+	LIMIT_ACCOUNT_SIZE=true
+	MAX_ACCOUNT_SIZE=100000000
+	MAX_PHOTO_SIZE=100000
+	MAX_AVATAR_SIZE=20000
+	MAX_CAPTION_LENGTH=5000
+	MAX_BIO_LENGTH=250
+	MAX_NAME_LENGTH=50
+	MAX_ALBUM_LENGTH=10
+	IMAGE_QUALITY=100
+	PF_OPTIMIZE_IMAGES=true
+	PF_OPTIMIZE_VIDEOS=true
+	ADMIN_ENV_EDITOR=true
+	ACCOUNT_DELETION=true
+	ACCOUNT_DELETE_AFTER=false
+	MAX_LINKS_PER_POST=0
+	INSTANCE_DESCRIPTION="very photo sharing for everyone"
+	INSTANCE_PUBLIC_HASHTAGS=true
+	INSTANCE_CONTACT_EMAIL="hi@umarhadi.dev"
+	INSTANCE_PUBLIC_LOCAL_TIMELINE=true
+	STORIES_ENABLED=false
+	RESTRICTED_INSTANCE=false
+	INSTANCE_DISCOVER_PUBLIC=true
+	PAGE_404_HEADER="what you're looking for?"
+	PAGE_404_BODY="the page you were looking for has been caught in a time loop and is stuck reliving the same day over and over again."
+	PAGE_503_HEADER="Under construction... and by construction, we mean destruction."
+	PAGE_503_BODY="We're sorry, but our website is currently undergoing some much-needed beauty sleep. Please check back later when it's feeling more refreshed."
+	PF_LOCAL_AVATAR_TO_CLOUD=true
+	MAIL_DRIVER="smtp"
+	MAIL_FROM_NAME="Pixelfed"
+	DB_CONNECTION="pgsql"
+	REDIS_CLIENT="phpredis"
+	REDIS_SCHEME="tcp"
+	REDIS_PORT=6379
+	REDIS_DATABASE=0
+	HORIZON_PREFIX="horizon-"
+	EXP_LC=false
+	EXP_REC=false
+	EXP_LOOPS=false
+	ACTIVITY_PUB=true
+	AP_REMOTE_FOLLOW=true
+	AP_SHAREDINBOX=true
+	AP_INBOX=true
+	AP_OUTBOX=true
+	ATOM_FEEDS=true
+	NODEINFO=true
+	WEBFINGER=true
+	FILESYSTEM_CLOUD="s3"
+	PF_ENABLE_CLOUD=true
+	AWS_DEFAULT_REGION="auto"
+	AWS_BUCKET="pixelfed"
+	AWS_USE_PATH_STYLE_ENDPOINT=false
+	HORIZON_DARKMODE=true
+	PF_COSTAR_ENABLED=true
+	LOG_CHANNEL="stderr"
+	IMAGE_DRIVER="gd"
+	BROADCAST_DRIVER="log"
+	CACHE_DRIVER="redis"
+	RESTRICT_HTML_TYPES=true
+	QUEUE_DRIVER="redis"
+	SESSION_DRIVER="redis"
+	TRUST_PROXIES="*"
+	HORIZON_MEMORY_LIMIT=256
+
+[experimental]
+	auto_rollback = true
+
+[mounts]
+	source = "pixelfed_storage"
+	destination = "/var/www/storage"
+	readonly = false
+# [[mounts]]
+# 	source = "pixelfed_bootstrap"
+# 	destination = "/var/www/bootstrap"
+# 	readonly = false
+
+# 	source = "pixelfed_storage"
+# 	destination = "/var/www/storage"
+
+# [mounts]
+# 	source = "pixelfed_bootstrap"
+# 	destination = "/var/www/bootstrap"
+
+[[services]]
+	http_checks = []
+	internal_port = 80
+	processes = ["app"]
+	protocol = "tcp"
+	script_checks = []
+	[services.concurrency]
+		hard_limit = 50
+		soft_limit = 25
+		type = "connections"
+
+	[[services.ports]]
+		force_https = true
+		handlers = ["http"]
+		port = 80
+
+	[[services.ports]]
+		handlers = ["tls", "http"]
+		port = 443
+
+	# [[services.tcp_checks]]
+	# 	grace_period = "1s"
+	# 	interval = "30s"
+	# 	restart_limit = 0
+	# 	timeout = "60s"
