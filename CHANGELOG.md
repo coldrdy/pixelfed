@@ -3,8 +3,10 @@
 ## [Unreleased](https://github.com/pixelfed/pixelfed/compare/v0.11.5...dev)
 
 ### Added
+- Add php 8.2 support. Bump laravel version, v9 => v10 ([fb4ac4eb](https://github.com/pixelfed/pixelfed/commit/fb4ac4eb))
 - New media:fix-nonlocal-driver command. Fixes s3 media created with invalid FILESYSTEM_DRIVER=s3 configuration ([672cccd4](https://github.com/pixelfed/pixelfed/commit/672cccd4))
 - New landing page design ([09c0032b](https://github.com/pixelfed/pixelfed/commit/09c0032b))
+- Add cloud ip bans to BouncerService ([50ab2e20](https://github.com/pixelfed/pixelfed/commit/50ab2e20))
 
 ### Updates
 - Update ApiV1Controller, fix blocking remote accounts. Closes #4256 ([8e71e0c0](https://github.com/pixelfed/pixelfed/commit/8e71e0c0))
@@ -24,6 +26,8 @@
 - Update LandingController, fix config variable names ([b716926b](https://github.com/pixelfed/pixelfed/commit/b716926b))
 - Update Privacy Settings, add Directory setting ([634c15e4](https://github.com/pixelfed/pixelfed/commit/634c15e4))
 - Update site config ([6d59dc8e](https://github.com/pixelfed/pixelfed/commit/6d59dc8e))
+- Update db:raw queries to support laravel v10 ([849e5103](https://github.com/pixelfed/pixelfed/commit/849e5103))
+- Update RegisterController, store client ip during registration ([d4c967de](https://github.com/pixelfed/pixelfed/commit/d4c967de))
 -  ([](https://github.com/pixelfed/pixelfed/commit/))
 
 ## [v0.11.5 (2023-03-25)](https://github.com/pixelfed/pixelfed/compare/v0.11.4...v0.11.5)
