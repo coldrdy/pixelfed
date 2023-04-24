@@ -122,6 +122,13 @@ Route::domain(config('pixelfed.domain.admin'))->prefix('i/admin')->group(functio
 		Route::post('instances/refresh-stats', 'AdminController@postInstanceRefreshStatsApi');
 		Route::get('instances/download-backup', 'AdminController@downloadBackup');
 		Route::post('instances/import-data', 'AdminController@importBackup');
+		Route::get('reports/stats', 'AdminController@reportsStats');
+		Route::get('reports/all', 'AdminController@reportsApiAll');
+		Route::get('reports/get/{id}', 'AdminController@reportsApiGet');
+		Route::post('reports/handle', 'AdminController@reportsApiHandle');
+		Route::get('reports/spam/all', 'AdminController@reportsApiSpamAll');
+		Route::get('reports/spam/get/{id}', 'AdminController@reportsApiSpamGet');
+		Route::post('reports/spam/handle', 'AdminController@reportsApiSpamHandle');
 	});
 });
 
@@ -555,6 +562,7 @@ Route::domain(config('pixelfed.domain.app'))->middleware(['validemail', 'twofact
 			Route::view('labs-deprecation', 'site.help.labs-deprecation')->name('help.labs-deprecation');
 			Route::view('tagging-people', 'site.help.tagging-people')->name('help.tagging-people');
 			Route::view('licenses', 'site.help.licenses')->name('help.licenses');
+			Route::view('instance-max-users-limit', 'site.help.instance-max-users')->name('help.instance-max-users-limit');
 		});
 		Route::get('newsroom/{year}/{month}/{slug}', 'NewsroomController@show');
 		Route::get('newsroom/archive', 'NewsroomController@archive');

@@ -7,6 +7,7 @@
 - New media:fix-nonlocal-driver command. Fixes s3 media created with invalid FILESYSTEM_DRIVER=s3 configuration ([672cccd4](https://github.com/pixelfed/pixelfed/commit/672cccd4))
 - New landing page design ([09c0032b](https://github.com/pixelfed/pixelfed/commit/09c0032b))
 - Add cloud ip bans to BouncerService ([50ab2e20](https://github.com/pixelfed/pixelfed/commit/50ab2e20))
+- Redesigned Admin Dashboard Reports/Moderation ([c6cc6327](https://github.com/pixelfed/pixelfed/commit/c6cc6327))
 
 ### Updates
 - Update ApiV1Controller, fix blocking remote accounts. Closes #4256 ([8e71e0c0](https://github.com/pixelfed/pixelfed/commit/8e71e0c0))
@@ -29,6 +30,7 @@
 - Update db:raw queries to support laravel v10 ([849e5103](https://github.com/pixelfed/pixelfed/commit/849e5103))
 - Update RegisterController, store client ip during registration ([d4c967de](https://github.com/pixelfed/pixelfed/commit/d4c967de))
 - Update ApiV1Controller, fix account blocks. Closes #4304 ([98739139](https://github.com/pixelfed/pixelfed/commit/98739139))
+- Update RegisterController, improve max_users calculation and add kb page to redirect to if conditions are met ([1bbee6d0](https://github.com/pixelfed/pixelfed/commit/1bbee6d0))
 -  ([](https://github.com/pixelfed/pixelfed/commit/))
 
 ## [v0.11.5 (2023-03-25)](https://github.com/pixelfed/pixelfed/compare/v0.11.4...v0.11.5)
