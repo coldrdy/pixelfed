@@ -3010,9 +3010,10 @@ class ApiV1Controller extends Controller
 				$status->caption = $content;
 				$status->rendered = $rendered;
 				$status->profile_id = $user->profile_id;
-				$status->scope = 'draft';
 				$status->is_nsfw = $cw;
 				$status->cw_summary = $spoilerText;
+				$status->scope = 'draft';
+				$status->visibility = 'draft';
 				if($request->has('place_id')) {
 					$status->place_id = $request->input('place_id');
 				}
@@ -3244,9 +3245,15 @@ class ApiV1Controller extends Controller
 		  'limit'       => 'nullable|integer|max:100'
 		]);
 
-		$tag = Hashtag::whereName($hashtag)
-		  ->orWhere('slug', $hashtag)
-		  ->first();
+		if(config('database.default') === 'pgsql') {
+			$tag = Hashtag::where('name', 'ilike', $hashtag)
+				->orWhere('slug', 'ilike', $hashtag)
+				->first();
+		} else {
+			$tag = Hashtag::whereName($hashtag)
+			  ->orWhere('slug', $hashtag)
+			  ->first();
+		}
 
 		if(!$tag) {
 			return response()->json([]);
