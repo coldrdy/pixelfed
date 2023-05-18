@@ -10,6 +10,7 @@ use App\Services\NotificationService;
 use App\Services\StatusService;
 use App\Jobs\ReportPipeline\AutospamNotifyAdminViaEmail;
 use App\Notification;
+use App\Services\AutospamService;
 
 class Bouncer {
 
@@ -86,6 +87,12 @@ class Bouncer {
 		
 		if($status->profile->followers()->count() > 100) {
 			return;
+		}
+
+		if(AutospamService::active()) {
+			if(AutospamService::check($status->caption)) {
+				return (new self)->handle($status);
+			}
 		}
 
 		if(!Str::contains($status->caption, [
